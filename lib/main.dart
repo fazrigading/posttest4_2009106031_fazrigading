@@ -1,49 +1,147 @@
 import 'package:flutter/material.dart';
+import 'package:posttest4_2009106031_fazrigading/landingpage.dart';
 import 'button.dart';
-import 'menu.dart';
+import 'mainpage.dart';
 import 'nftlist.dart';
 import 'profilepage.dart';
+import 'landingpage.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 double balance = 43.19;
-String firstName = "Jenny",
-    lastName = "Doe",
-    emailAdress = "jennydoe@gmail.com";
+String firstName = "Fazri",
+    lastName = "Gading",
+    emailAddress = "fazrigading@gmail.com";
 List<String> gender = ["Male", "Female"];
-int chosenGender = 1;
+int chosenGender = 0;
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Post-test 3 2009106031',
-      home: const HomeScreen(),
-      theme: ThemeData(
-          fontFamily: 'Manrope',
-          appBarTheme:
-              const AppBarTheme(iconTheme: IconThemeData(color: Colors.black))),
-      debugShowCheckedModeBanner: false,
-    );
+        title: 'Post-test 4 2009106031',
+        theme: ThemeData(
+            fontFamily: 'Manrope',
+            appBarTheme: const AppBarTheme(
+                iconTheme: IconThemeData(color: Colors.black))),
+        debugShowCheckedModeBanner: false,
+        initialRoute: '/',
+        routes: {
+          '/': (context) => const LandingPage(),
+          '/mainpage': (context) => const MainPage(),
+          '/profilepage': (context) => EditProfile(
+              firstName: firstName,
+              lastName: lastName,
+              gender: gender,
+              emailAddress: emailAddress,
+              chosenGender: chosenGender),
+        });
   }
 }
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key, firstName, lastName}) : super(key: key);
+/* MAIN PAGE */
+class MainPage extends StatefulWidget {
+  const MainPage({Key? key, firstName, lastName}) : super(key: key);
   @override
-  // ignore: no_logic_in_create_state
-  State<HomeScreen> createState() => _HomeScreenState(firstName, lastName);
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
-  _HomeScreenState(firstName, lastName);
+class _MainPageState extends State<MainPage> {
+  final List<BottomNavigationBarItem> _bottomItem = [
+    const BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+    const BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+  ];
+  final List<Widget> _myPages = [
+    ListView(
+      children: const [
+        SubmenuTitles(teks: 'Categories'),
+        CategoriesButton(),
+        SubmenuTitles(teks: 'Featured NFTs'),
+        FeaturedNFT(),
+        SubmenuTitles(teks: 'Featured Creators'),
+        Creators(),
+      ],
+    ),
+    const ViewProfile(),
+  ];
+  int _indexBottom = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      drawer: Drawer(
+        backgroundColor: const Color.fromRGBO(18, 18, 18, 0.9),
+        elevation: 5,
+        child: ListView(
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color.fromRGBO(18, 18, 18, 1),
+              ),
+              child: Center(
+                child: Text(
+                  "Welcome to the\nbest of the best\nNFT Marketplace App!",
+                  style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w900),
+                ),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.photo_library_rounded,
+                color: Colors.white,
+              ),
+              title: const Text("Your NFTs",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700)),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.account_balance_wallet,
+                color: Colors.white,
+              ),
+              title: const Text("Wallets",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700)),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.favorite,
+                color: Colors.white,
+              ),
+              title: const Text("Favorites",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700)),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: const Icon(
+                Icons.category_sharp,
+                color: Colors.white,
+              ),
+              title: const Text("Categories",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700)),
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Colors.white,
@@ -62,30 +160,20 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.only(right: 10),
             child: IconButton(
                 alignment: Alignment.centerRight,
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => EditProfile(
-                              firstName: firstName,
-                              lastName: lastName,
-                              gender: gender,
-                              emailAddress: emailAdress,
-                              chosenGender: chosenGender)));
-                },
-                icon: const Icon(Icons.person_outline)),
+                onPressed: () {},
+                icon: const Icon(Icons.notifications)),
           )
         ],
       ),
-      body: ListView(
-        children: const [
-          Submenu(teks: 'Categories'),
-          CategoriesButton(),
-          Submenu(teks: 'Featured NFTs'),
-          FeaturedNFT(),
-          Submenu(teks: 'Featured Creators'),
-          Creators(),
-        ],
+      body: _myPages.elementAt(_indexBottom),
+      bottomNavigationBar: BottomNavigationBar(
+        items: _bottomItem,
+        currentIndex: _indexBottom,
+        onTap: (int index) {
+          setState(() {
+            _indexBottom = index;
+          });
+        },
       ),
     );
   }

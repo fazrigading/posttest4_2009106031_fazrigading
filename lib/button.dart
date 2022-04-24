@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'menu.dart';
+import 'detailspage.dart';
 
 class NonSelectedButton extends StatelessWidget {
   const NonSelectedButton({Key? key, required this.teks}) : super(key: key);
@@ -55,8 +55,8 @@ class CategoriesButton extends StatelessWidget {
   }
 }
 
-class BuyButton extends StatelessWidget {
-  const BuyButton(
+class DetailsButton extends StatelessWidget {
+  const DetailsButton(
       {Key? key,
       required this.kreator,
       required this.judul,
@@ -86,7 +86,7 @@ class BuyButton extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => BuyMenu(
+                        builder: (context) => DetailsPage(
                               kreator: kreator,
                               judul: judul,
                               harga: harga,
@@ -98,7 +98,7 @@ class BuyButton extends StatelessWidget {
                 minWidth: 158,
                 height: 58,
                 child: const Text(
-                  'Buy Now',
+                  'Place Bid',
                   style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Manrope',
@@ -188,5 +188,18 @@ class Creators extends StatelessWidget {
             pengikut: '707'),
       ],
     );
+  }
+}
+
+class EditProfileButton extends StatelessWidget {
+  const EditProfileButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        onPressed: () {
+          Navigator.pushNamed(context, '/profilepage');
+        },
+        child: const Text("Edit Profile"));
   }
 }

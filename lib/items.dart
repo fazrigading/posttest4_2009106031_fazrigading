@@ -75,7 +75,7 @@ class Item extends StatelessWidget {
               image: DecorationImage(
                   image: AssetImage(gambar), fit: BoxFit.cover)),
         ),
-        BuyButton(
+        DetailsButton(
             kreator: kreator,
             judul: judul,
             harga: harga,

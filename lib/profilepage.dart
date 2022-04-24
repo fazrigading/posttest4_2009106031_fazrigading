@@ -1,6 +1,44 @@
 // ignore_for_file: no_logic_in_create_state, must_be_immutable
-
 import 'package:flutter/material.dart';
+import 'button.dart';
+
+class ViewProfile extends StatelessWidget {
+  const ViewProfile({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView(children: [
+      Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+              margin: const EdgeInsets.only(top: 20, bottom: 20),
+              width: 200,
+              height: 200,
+              decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                      image: AssetImage('assets/bakc.png'),
+                      fit: BoxFit.cover))),
+          const Text("Fazri Gading",
+              style: TextStyle(
+                  color: Color.fromRGBO(18, 18, 18, 1),
+                  fontSize: 24,
+                  fontWeight: FontWeight.w800)),
+          const Text("@fazrigading",
+              style: TextStyle(
+                  color: Color.fromRGBO(18, 183, 183, 1),
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold)),
+          Container(
+              margin: const EdgeInsets.only(top: 20),
+              child: const EditProfileButton()),
+        ],
+      ),
+    ]);
+  }
+}
 
 class EditProfile extends StatefulWidget {
   EditProfile(
