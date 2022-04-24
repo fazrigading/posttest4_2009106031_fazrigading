@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:posttest4_2009106031_fazrigading/landingpage.dart';
 import 'button.dart';
 import 'nftlist.dart';
 import 'profilepage.dart';
